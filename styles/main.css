@@ -1,0 +1,29 @@
+.alert {
+	margin-bottom: 0;
+}
+
+h1, h3 {
+	padding-left: 15px;
+}
+
+/*table, tr, td {
+	border: 1px solid black;
+}*/
+
+td {
+	min-width: 140px;
+	height: 20px;
+}
+
+.sportCell {
+	font-size: 0.75em;
+}
+
+.scoreCell {
+	min-width: 40px;
+	text-align: right;
+}
+
+.timeCell {
+	font-size: 0.75em;
+}

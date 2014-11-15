@@ -1,0 +1,16 @@
+{
+  "name": "sport_tile",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "express": "~4.9.0",
+    "cheerio": "latest",
+    "request": "latest",
+    "hogan": "latest",
+    "mongoose": "latest",
+    "angular": "latest"
+  }
+}
