@@ -5,59 +5,38 @@
 		<link rel="stylesheet" href="styles/main.css">
 		<script src="node_modules/angular/angular.js"></script>
 		<script src="js/ngapp.js"></script>
-		<script src="js/ngcontroller.js"></script>
 	</head>
 	<body ng-app="App">
-		<!-- <div class="container"> -->
 		<div>
 			<div id="content">
 				<div ng-controller="TileController">
 					<h1 class="title">Sport Tile</h1>
 					<div class="form-group col-lg-3">
-						<input 	type="search" class="form-control" ng-model="searchGames">
+						<input class="form-control" ng-model="searchGames">
 					</div>
-			<div id="buttons">
-
-				<button ng-click="searchGames = ''" class= "btn btn-success">All</button>
-				<button ng-click="searchGames = '!Final'" class="btn btn-primary">In Progress</button>
-				<button ng-click="searchGames = 'NFL'" class="btn btn-primary">NFL</button>
-				<button ng-click="searchGames = 'NCAAF'" class="btn btn-primary">NCAA FB</button>
-				<button ng-click="searchGames = 'NBA'" class="btn btn-primary">NBA</button>
-				<button ng-click="searchGames = 'NCAAB'" class="btn btn-primary">NCAA BB</button>
-				<button ng-click="searchGames = 'MLB'" class="btn btn-primary">MLB</button>
-				<button ng-click="searchGames = 'NHL'" class="btn btn-primary">NHL</button>
-
-			</div>
-
-				<hr>
-
-				<h3>In Progress</h3>
-
-					<div id="tiles"	ng-repeat="score in scores | filter:searchGames"
-							class="tiles col-md-3 alert"
-							ng-class="{true: 'alert-danger', false: 'alert-info'}[score.timeRem.substr(0,5) == 'Final']">
-							<a href="">
-								<table>
-									<tr>
-										<td class="sportCell"> {{ score.sport }} </td>
-									</tr>
-									<tr>
-										<td class="teamCell"> {{ score.team1 }} </td>
-										<td class="scoreCell"> {{ score.team1Pts }} </td>
-									</tr>
-									<tr>
-										<td class="teamCell">{{ score.team2 }} </td>
-										<td class="scoreCell"> {{ score.team2Pts }} </td>
-									</tr>
-									<tr>
-										<td class="timeCell"> {{ score.timeRem }} </td>
-									</tr>
-								</table>
-							</a>
+				<button ng-click="sportClick(button)" class='btn btn-primary' ng-class="{'btn-success' : isSelected(button)}">All</button>
+				<span id="buttons" ng-repeat="button in buttons">
+					<button ng-click="sportClick(button)" class='btn btn-primary' ng-class="{'btn-success' : isSelected(button)}"> {{ button.sport }} </button>
+				</span>
+					<hr>
+					<h3>In Progress</h3>
+						<div id="tiles"	ng-repeat="score in scores | filter:{sport:selected.sport} | filter: searchGames"
+								class="tiles col-md-3 alert"
+								ng-class="{true: 'alert-danger', false: 'alert-info'}[score.timeRem.substr(0,5) == 'Final']">
+								<a href="">
+									<div class="scoreTable">
+										<div class="sportCell"> {{ score.sport }} </div>
+										<div class="teamCell"> {{ score.team1 }} </div>
+										<div class="scoreCell"> {{ score.team1Pts }} </div>
+										<div class="teamCell"> {{ score.team2 }} </div>
+										<div class="scoreCell"> {{ score.team2Pts }} </div>
+										<div class="timeCell"> {{ score.timeRem }} </div>
+									</div>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<script src="js/script.js"></script>
-	</body>
-</html>
+			<!--<script src="js/script.js"></script>-->
+		</body>
+	</html>
