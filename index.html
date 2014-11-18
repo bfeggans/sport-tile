@@ -4,6 +4,7 @@
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="styles/main.css">
 		<script src="node_modules/angular/angular.js"></script>
+		<script src="node_modules/angular-animate/angular-animate.js"></script>
 		<script src="js/ngapp.js"></script>
 	</head>
 	<body ng-app="App">
@@ -14,15 +15,16 @@
 					<div class="form-group col-lg-3">
 						<input class="form-control" ng-model="searchGames">
 					</div>
+				<button ng-click="toggle(scores); isActive = !isActive" ng-init="isActive = false" class='btn btn-primary' ng-class="{'btn-success' : isSelected(null), 'btn btn-primary': !isActive, 'btn btn-success': isActive}">In Progress</button>
 				<button ng-click="sportClick(button)" class='btn btn-primary' ng-class="{'btn-success' : isSelected(button)}">All</button>
 				<span id="buttons" ng-repeat="button in buttons">
-					<button ng-click="sportClick(button)" class='btn btn-primary' ng-class="{'btn-success' : isSelected(button)}"> {{ button.sport }} </button>
+					<button ng-click="sportClick(button); isActive = false" class='btn btn-primary' ng-class="{'btn-success' : isSelected(button)}"> {{ button.sport }} </button>
 				</span>
 					<hr>
 					<h3>In Progress</h3>
 						<div id="tiles"	ng-repeat="score in scores | filter:{sport:selected.sport} | filter: searchGames"
 								class="tiles col-md-3 alert"
-								ng-class="{true: 'alert-danger', false: 'alert-info'}[score.timeRem.substr(0,5) == 'Final']">
+								ng-class="{true: 'alert-danger', false: 'alert-info'}[score.timeRem.substr(0,5) == 'Final' || score.timeRem.substr(4,2) == 'PM' || score.timeRem.substr(5,2) == 'PM']">
 								<a href="">
 									<div class="scoreTable">
 										<div class="sportCell"> {{ score.sport }} </div>

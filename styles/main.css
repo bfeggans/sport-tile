@@ -2,13 +2,22 @@
 	margin-bottom: 0;
 }
 
+.alert-info {
+	background: #01910B;
+}
+
+.alert-danger {
+	background: #444;
+}
+
+a, a:hover {
+	text-decoration: none;
+	color: white;
+}
+
 h1, h3 {
 	padding-left: 15px;
 }
-
-/*table, tr, td {
-	border: 1px solid black;
-}*/
 
 td {
 	min-width: 140px;
@@ -26,4 +35,26 @@ td {
 
 .timeCell {
 	font-size: 0.75em;
+}
+
+.ng-enter{
+    -webkit-transition: .5s;
+		opacity: 0;
+}
+
+.ng-enter-active{
+		opacity: 1;
+}
+
+.ng-enter-stagger{
+		transition-delay: .1s;
+}
+
+.ng-leave{
+		-webkit-transition: .5s;
+		opacity: 1;
+}
+
+.ng-leave-active{
+		opacity: 0;
 }
