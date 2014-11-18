@@ -1,6 +1,6 @@
-angular.module('App', ['ngAnimate'])
-	.controller('TileController', function ($scope, $http, $filter, $timeout){
+var app = angular.module('App', ['ngAnimate'])
 
+app.controller('TileController', function ($scope, $http, $filter, $timeout){
 	$scope.getScores = function () {
 		$http.get('output.json').
 				success(function(data, status) {
@@ -9,8 +9,7 @@ angular.module('App', ['ngAnimate'])
 				});
 			}
 
-		$scope.getScores();
-
+	$scope.getScores();
 	$scope.buttons = [{sport: 'NFL'},{sport: 'NCAA FB'},{sport: 'NBA'},{sport: 'NCAAB'},{sport: 'MLB'}, {sport: 'NHL'}];
 
 	$scope.sportClick = function(button) {
@@ -45,8 +44,22 @@ angular.module('App', ['ngAnimate'])
 		$scope.inProgressGames(scores);
 		called = true;
 	}
+})
 
+app.directive("enter", function () {
+	return function (scope, element, attrs) {
+		element.bind("mouseenter", function () {
+			// element.removeClass('col-md-3');
+			element.addClass('alert-big');
+		})
+	}
+})
 
-	//$scope.inProgressGames();
-
+app.directive("leave", function () {
+	return function (scope, element, attrs) {
+		element.bind("mouseleave", function () {
+			element.removeClass('alert-big');
+			// element.addClass('col-md-3');
+		})
+	}
 })

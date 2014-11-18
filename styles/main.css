@@ -2,12 +2,19 @@
 	margin-bottom: 0;
 }
 
-.alert-info {
+.alert-in-progress {
 	background: #01910B;
+	border: 1px solid white;
 }
 
-.alert-danger {
+.alert-upcoming {
 	background: #444;
+	border: 1px solid white;
+}
+
+.alert-big {
+	width: 640px;
+	height: 284px;
 }
 
 a, a:hover {
