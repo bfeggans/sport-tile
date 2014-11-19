@@ -12,9 +12,8 @@
 	border: 1px solid white;
 }
 
-.alert-big {
-	width: 640px;
-	height: 284px;
+.alert-hover {
+	opacity: .75;
 }
 
 a, a:hover {

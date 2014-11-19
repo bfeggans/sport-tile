@@ -10,6 +10,7 @@ app.controller('TileController', function ($scope, $http, $filter, $timeout){
 			}
 
 	$scope.getScores();
+	
 	$scope.buttons = [{sport: 'NFL'},{sport: 'NCAA FB'},{sport: 'NBA'},{sport: 'NCAAB'},{sport: 'MLB'}, {sport: 'NHL'}];
 
 	$scope.sportClick = function(button) {
@@ -49,8 +50,7 @@ app.controller('TileController', function ($scope, $http, $filter, $timeout){
 app.directive("enter", function () {
 	return function (scope, element, attrs) {
 		element.bind("mouseenter", function () {
-			// element.removeClass('col-md-3');
-			element.addClass('alert-big');
+			element.addClass(attrs.enter);
 		})
 	}
 })
@@ -58,8 +58,21 @@ app.directive("enter", function () {
 app.directive("leave", function () {
 	return function (scope, element, attrs) {
 		element.bind("mouseleave", function () {
-			element.removeClass('alert-big');
-			// element.addClass('col-md-3');
+			element.removeClass(attrs.leave);
 		})
+	}
+})
+
+app.directive("gamescore", function () {
+	return {
+		restrict: "E",
+		template: '<a href=""><div class="scoreTable"><div class="sportCell"> {{ score.sport }} </div><div class="teamCell"> {{ score.team1 }} </div><div class="scoreCell"> {{ score.team1Pts }} </div><div class="teamCell"> {{ score.team2 }} </div><div class="scoreCell"> {{ score.team2Pts }} </div><div class="timeCell"> {{ score.timeRem }} </div></div></a>'
+	}
+})
+
+app.directive("sportbtn", function () {
+	return {
+		restrict: "E",
+		template: '<button ng-click="sportClick(button); isActive = false" class="btn btn-primary" ng-class="{"btn-success" : isSelected(button)}"> {{ button.sport }} </button>'
 	}
 })

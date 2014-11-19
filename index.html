@@ -36,34 +36,23 @@
 
 					<span 	id="buttons"
 									ng-repeat="button in buttons">
-					<button ng-click="sportClick(button); isActive = false"
-									class='btn btn-primary'
-									ng-class="{'btn-success' : isSelected(button)}"> {{ button.sport }} </button>
+					<sportbtn></sportbtn>
 					</span>
 					<hr>
 					<h3>In Progress</h3>
 
-						<!-- repeater for the day's games -->
+					<!-- repeater for the day's games -->
 
-					<div 	enter leave
+					<div 	enter="alert-hover" leave="alert-hover"
 								id="tiles"
 								ng-repeat="score in scores | filter:{sport:selected.sport} | filter: searchGames"
 								class="tiles col-md-3 alert"
 								ng-class="{true: 'alert-upcoming', false: 'alert-in-progress'}[score.timeRem.substr(0,5) == 'Final' || score.timeRem.substr(4,2) == 'PM' || score.timeRem.substr(5,2) == 'PM']">
-						<a href="">
-							<div class="scoreTable">
-								<div class="sportCell"> {{ score.sport }} </div>
-								<div class="teamCell"> {{ score.team1 }} </div>
-								<div class="scoreCell"> {{ score.team1Pts }} </div>
-								<div class="teamCell"> {{ score.team2 }} </div>
-								<div class="scoreCell"> {{ score.team2Pts }} </div>
-								<div class="timeCell"> {{ score.timeRem }} </div>
-							</div>
-						</a>
+						<gamescore></gamescore>
 					</div>
 
 					<!-- end tile repeater -->
-					
+
 				</div>
 			</div>
 		</div>
