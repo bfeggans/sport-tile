@@ -12,6 +12,7 @@
 			<div id="content">
 				<div ng-controller="TileController">
 					<h1 class="title">Sport Tile</h1>
+					<p>{{factory}}</p>
 
 					<!-- Search box bound to the game repeater -->
 
@@ -36,20 +37,23 @@
 
 					<span 	id="buttons"
 									ng-repeat="button in buttons">
-					<sportbtn></sportbtn>
+					<button ng-class="{'btn-success' : isSelected(button)}" ng-click="sportClick(button); isActive = false" class="btn btn-primary"> {{ button.sport }} </button>
 					</span>
 					<hr>
-					<h3>In Progress</h3>
+					<h3>{{scoresFilter.length}} Games</h3>
 
 					<!-- repeater for the day's games -->
 
 					<div 	enter="alert-hover" leave="alert-hover"
 								id="tiles"
-								ng-repeat="score in scores | filter:{sport:selected.sport} | filter: searchGames"
+								ng-repeat="score in scoresFilter = (scores | filter: searchGames | filter:{sport:selected.sport})"
 								class="tiles col-md-3 alert"
 								ng-class="{true: 'alert-upcoming', false: 'alert-in-progress'}[score.timeRem.substr(0,5) == 'Final' || score.timeRem.substr(4,2) == 'PM' || score.timeRem.substr(5,2) == 'PM']">
-						<gamescore></gamescore>
+						<gamescore ng-click='toggleModal()'></gamescore>
 					</div>
+					<modal-dialog width='750px' height='90%'>
+						<p>{{scores.$index}}<p>
+					</modal-dialog>
 
 					<!-- end tile repeater -->
 

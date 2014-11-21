@@ -1,26 +1,32 @@
-var app = angular.module('App', ['ngAnimate'])
+var app = angular.module('App', ['ngAnimate']);
 
-app.controller('TileController', function ($scope, $http, $filter, $timeout){
-	$scope.getScores = function () {
-		$http.get('output.json').
-				success(function(data, status) {
-		    	return $scope.scores = data;
-			  	console.log(status);
-				});
-			}
+/********FACTORY*********/
 
-	$scope.getScores();
-	
-	$scope.buttons = [{sport: 'NFL'},{sport: 'NCAA FB'},{sport: 'NBA'},{sport: 'NCAAB'},{sport: 'MLB'}, {sport: 'NHL'}];
+app.factory('scoreFactory', function($http){
+	return {
+		getGames: function() {
+   		return $http.get('output.json').then(function(result) {
+				return result.data;
+			})
+		}
+	}
+})
+
+/********CONTROLLERS*********/
+
+app.controller('TileController', ['$scope', '$http', 'scoreFactory', function ($scope, $http, scoreFactory){
+
+   scoreFactory.getGames().then(function(data) {
+       return $scope.scores = data;
+   });
 
 	$scope.sportClick = function(button) {
-    $scope.selected = button;
-		$scope.getScores();
-  }
+		$scope.selected = button;
+	};
 
-  $scope.isSelected = function(button) {
-    return $scope.selected === button;
-  }
+	$scope.isSelected = function(button) {
+		return $scope.selected === button;
+	};
 
 	$scope.inProgressGames = function(scores) {
 		var inProgress = [];
@@ -35,8 +41,9 @@ app.controller('TileController', function ($scope, $http, $filter, $timeout){
 				}
 		}
 		$scope.scores = inProgress;
+		console.log($scope.scores);
 		return $scope.scores;
-	}
+	};
 
 	var called = false;
 
@@ -44,8 +51,18 @@ app.controller('TileController', function ($scope, $http, $filter, $timeout){
 		if (called) { called = false; return $scope.getScores(); }
 		$scope.inProgressGames(scores);
 		called = true;
-	}
-})
+	};
+
+	$scope.toggleModal = function() {
+		$scope.modalShown = !$scope.modalShown;
+	};
+
+	$scope.modalShown = false;
+	$scope.buttons = [{sport: 'NFL'},{sport: 'NCAA FB'},{sport: 'NBA'},{sport: 'NCAAB'},{sport: 'MLB'}, {sport: 'NHL'}];
+
+}])
+
+/********DIRECTIVES*********/
 
 app.directive("enter", function () {
 	return function (scope, element, attrs) {
@@ -70,9 +87,21 @@ app.directive("gamescore", function () {
 	}
 })
 
-app.directive("sportbtn", function () {
-	return {
-		restrict: "E",
-		template: '<button ng-click="sportClick(button); isActive = false" class="btn btn-primary" ng-class="{"btn-success" : isSelected(button)}"> {{ button.sport }} </button>'
-	}
-})
+app.directive('modalDialog', function(scoreFactory) {
+  return {
+    restrict: 'E',
+    replace: true, // Replace with the template below
+    transclude: true, // we want to insert custom content inside the directive
+    link: function(scope, element, attrs) {
+      scope.dialogStyle = {};
+      if (attrs.width)
+        scope.dialogStyle.width = attrs.width;
+      if (attrs.height)
+        scope.dialogStyle.height = attrs.height;
+      scope.hideModal = function() {
+        scope.modalShown = false;
+      };
+    },
+    template: "<div class='ng-modal' ng-show='modalShown'><div class='ng-modal-overlay' ng-click='hideModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle'><div class='ng-modal-close' ng-click='hideModal()'>X</div><div class='ng-modal-dialog-content' ng-transclude></div></div></div>"
+  };
+});
