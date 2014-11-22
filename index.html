@@ -1,64 +1,19 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Sport Tile</title>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="styles/main.css">
 		<script src="node_modules/angular/angular.js"></script>
+		<script src="node_modules/angular-route/angular-route.js"></script>
 		<script src="node_modules/angular-animate/angular-animate.js"></script>
 		<script src="js/ngapp.js"></script>
 	</head>
 	<body ng-app="App">
-		<div>
-			<div id="content">
-				<div ng-controller="TileController">
-					<h1 class="title">Sport Tile</h1>
-					<p>{{factory}}</p>
-
-					<!-- Search box bound to the game repeater -->
-
-					<div class="form-group col-lg-3">
-						<input class="form-control" ng-model="searchGames">
-					</div>
-
-					<!-- In progress button -->
-
-					<button 	ng-click="toggle(scores); isActive = !isActive"
-										ng-init="isActive = false"
-										class='btn btn-primary'
-										ng-class="{'btn-success' : isSelected(null), 'btn btn-primary': !isActive, 'btn btn-success': isActive}">In Progress</button>
-
-					<!-- All sports button -->
-
-					<button 	ng-click="sportClick(button)"
-										class='btn btn-primary'
-										ng-class="{'btn-success' : isSelected(button)}">All</button>
-
-					<!-- ng-repeat to grab all of the sport buttons -->
-
-					<span 	id="buttons"
-									ng-repeat="button in buttons">
-					<button ng-class="{'btn-success' : isSelected(button)}" ng-click="sportClick(button); isActive = false" class="btn btn-primary"> {{ button.sport }} </button>
-					</span>
-					<hr>
-					<h3>{{scoresFilter.length}} Games</h3>
-
-					<!-- repeater for the day's games -->
-
-					<div 	enter="alert-hover" leave="alert-hover"
-								id="tiles"
-								ng-repeat="score in scoresFilter = (scores | filter: searchGames | filter:{sport:selected.sport})"
-								class="tiles col-md-3 alert"
-								ng-class="{true: 'alert-upcoming', false: 'alert-in-progress'}[score.timeRem.substr(0,5) == 'Final' || score.timeRem.substr(4,2) == 'PM' || score.timeRem.substr(5,2) == 'PM']">
-						<gamescore ng-click='toggleModal()'></gamescore>
-					</div>
-					<modal-dialog width='750px' height='90%'>
-						<p>{{scores.$index}}<p>
-					</modal-dialog>
-
-					<!-- end tile repeater -->
-
-				</div>
-			</div>
+		<div id="content">
+			<h1 class="title">Sport Tile</h1>
+			<div ng-view></div>
+			<!-- View pops in here -->
 		</div>
 	</body>
 </html>

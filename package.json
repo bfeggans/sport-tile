@@ -12,6 +12,7 @@
     "hogan": "latest",
     "mongoose": "latest",
     "angular": "latest",
+    "angular-route": "latest",
     "angular-animate": "latest"
   }
 }

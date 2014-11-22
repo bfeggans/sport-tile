@@ -1,27 +1,49 @@
-var app = angular.module('App', ['ngAnimate']);
+var app = angular.module('App', ['ngAnimate','ngRoute']);
+
+app.config(function ($routeProvider){
+
+	$routeProvider.when('/', {
+		controller: 'tileController',
+		templateUrl: 'views/scores.html'
+	});
+
+});
 
 /********FACTORY*********/
 
 app.factory('scoreFactory', function($http){
-	return {
-		getGames: function() {
+	
+	scores = {};
+
+	scores.getGames = function() {
    		return $http.get('output.json').then(function(result) {
 				return result.data;
 			})
-		}
-	}
+		};
+
+	return scores;
 })
 
 /********CONTROLLERS*********/
 
-app.controller('TileController', ['$scope', '$http', 'scoreFactory', function ($scope, $http, scoreFactory){
+app.controller('tileController', ['$scope', '$http', 'scoreFactory', function ($scope, $http, scoreFactory){
 
-   scoreFactory.getGames().then(function(data) {
-       return $scope.scores = data;
-   });
+   	$scope.getAllScores = function () {
+   		scoreFactory.getGames().then(function(data) {
+       		return $scope.scores = data;
+   		});
+   	};
+
+   $scope.getAllScores();
 
 	$scope.sportClick = function(button) {
+		console.log(button);
 		$scope.selected = button;
+	};
+
+	$scope.toggleModal = function(score) {
+		$scope.modalShown = !$scope.modalShown;
+		$scope.selectedGame = score;
 	};
 
 	$scope.isSelected = function(button) {
@@ -45,16 +67,18 @@ app.controller('TileController', ['$scope', '$http', 'scoreFactory', function ($
 		return $scope.scores;
 	};
 
-	var called = false;
+	var inProgressOn;
 
 	$scope.toggle = function (scores) {
-		if (called) { called = false; return $scope.getScores(); }
-		$scope.inProgressGames(scores);
-		called = true;
-	};
-
-	$scope.toggleModal = function() {
-		$scope.modalShown = !$scope.modalShown;
+		if (inProgressOn == true) { 
+			inProgressOn = false; 
+			$scope.isActive = false;
+			return $scope.getAllScores();
+		} else { 
+			inProgressOn = true; 
+			$scope.isActive = true;
+			return $scope.inProgressGames(scores);
+		}
 	};
 
 	$scope.modalShown = false;

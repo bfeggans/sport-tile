@@ -1,0 +1,52 @@
+<!-- Search box bound to the game repeater -->
+
+<div class="form-group col-lg-3">
+	<input class="form-control" ng-model="searchGames">
+</div>
+
+<!-- In progress button -->
+
+<button 	ng-init="isActive = false"
+			ng-click="toggle(scores)"
+			class='btn btn-primary'
+			ng-class="{'btn btn-primary': !isActive, 'btn btn-success': isActive}">In Progress</button>
+
+<!-- All sports button -->
+
+<button 	ng-click="sportClick(button)"
+			class='btn btn-primary'
+			ng-class="{'btn-success' : isSelected(button)}">All</button>
+
+<!-- ng-repeat to grab all of the sport buttons -->
+
+<span 	id="buttons"
+		ng-repeat="button in buttons">
+<button ng-class="{'btn-success' : isSelected(button)}" 
+		ng-click="sportClick(button)" 
+		class="btn btn-primary"> {{ button.sport }} </button>
+</span>
+<hr>
+<h3>{{ scoresFilter.length }} Games</h3>
+
+<!-- repeater for the day's games -->
+
+<div 	enter="alert-hover" leave="alert-hover"
+		id="tiles"
+		ng-repeat="score in scoresFilter = (scores | filter: searchGames | filter:{sport:selected.sport})"
+		class="tiles col-md-3 alert"
+		ng-class="{true: 'alert-upcoming', false: 'alert-in-progress'}[score.timeRem.substr(0,5) == 'Final' || score.timeRem.substr(4,2) == 'PM' || score.timeRem.substr(5,2) == 'PM']">
+	<gamescore ng-click="toggleModal(score)"></gamescore>
+</div>
+<modal-dialog width='450px' height='275px'>
+	<h3> {{ selectedGame.team1 }} - {{ selectedGame.team1Pts }} <h3>
+	<h3> {{ selectedGame.team2 }} - {{ selectedGame.team2Pts }} <h3>
+	<p> {{ selectedGame.timeRem }} <p>
+	<hr>
+	<div>
+		<p> {{ selectedGame.stats.leader1 }} - {{ selectedGame.stats.stat1 }} <p>
+		<p> {{ selectedGame.stats.leader2 }} - {{ selectedGame.stats.stat2 }} <p>
+		<p> {{ selectedGame.stats.leader3 }} - {{ selectedGame.stats.stat3 }} <p>
+	</div>
+</modal-dialog>
+
+<!-- end tile repeater -->
