@@ -1,7 +1,7 @@
 /************ PAGE STYLING *************/
 body {
-  background: linear-gradient(black, white);
-  color: white;
+  background: white;
+  color: black;
   height: 100%;
 }
 
@@ -51,7 +51,7 @@ a, a:hover {
 }
 
 .btn:focus {
-  background: #0044A3;
+  background: #008537;
   color: white;
 }
 
