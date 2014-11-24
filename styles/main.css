@@ -1,24 +1,75 @@
+/************ PAGE STYLING *************/
+body {
+  background: linear-gradient(black, white);
+  color: white;
+  height: 100%;
+}
+
+/************ SCORE TILES STYLING *************/
 .alert {
 	margin-bottom: 0;
+  border: 1px solid #fff;
+  border-radius: 0;
 }
 
 .alert-in-progress {
-	background: #01910B;
-	border: 1px solid white;
+	background: #008537;
 }
 
 .alert-upcoming {
 	background: #444;
-	border: 1px solid white;
 }
 
 .alert-hover {
-	opacity: .75;
+	opacity: .85;
 }
 
 a, a:hover {
 	text-decoration: none;
 	color: white;
+}
+
+.sportCell {
+  font-size: 0.75em;
+}
+
+.scoreCell {
+  min-width: 40px;
+  text-align: right;
+}
+
+.timeCell {
+  font-size: 0.75em;
+}
+
+
+/************ BUTTONS STYLING *************/
+.btn {
+  background:#444;
+  border: 1px solid #777;
+  color: white;
+}
+
+.btn:focus {
+  background: #0044A3;
+  color: white;
+}
+
+.btn-success {
+  background:#008537;
+  border: 1px solid #00963F;
+}
+
+.btn-success:hover {
+  background: #008537;
+  border: 1px solid #000;
+  opacity: .85;
+}
+
+.btn:hover {
+  opacity: .85;
+  border: 1px solid #444;
+  color: white;
 }
 
 h1, h3 {
@@ -30,21 +81,10 @@ td {
 	height: 20px;
 }
 
-.sportCell {
-	font-size: 0.75em;
-}
 
-.scoreCell {
-	min-width: 40px;
-	text-align: right;
-}
-
-.timeCell {
-	font-size: 0.75em;
-}
-
+/************ TILE ANIMATIONS STYLING *************/
 .ng-enter{
-    -webkit-transition: .5s;
+    -webkit-transition: .7s;
 		opacity: 0;
 }
 
@@ -52,12 +92,12 @@ td {
 		opacity: 1;
 }
 
-.ng-enter-stagger{
-		transition-delay: .1s;
-}
+/*.ng-enter-stagger{
+		transition-delay: .2s;
+}*/
 
 .ng-leave{
-		-webkit-transition: .5s;
+		-webkit-transition: .7s;
 		opacity: 1;
 }
 
@@ -65,6 +105,8 @@ td {
 		opacity: 0;
 }
 
+
+/************ MODAL STYLING *************/
 .ng-modal-overlay {
   /* A dark translucent div that covers the whole screen */
   position:fixed;
@@ -80,6 +122,7 @@ td {
   /* A centered div above the overlay with a box shadow. */
   z-index:10000;
   border-radius:5px;
+  color: black;
   position: absolute;
   width: 50%; /* Default */
 

@@ -8,13 +8,13 @@
 
 <button 	ng-init="isActive = false"
 			ng-click="toggle(scores)"
-			class='btn btn-primary'
-			ng-class="{'btn btn-primary': !isActive, 'btn btn-success': isActive}">In Progress</button>
+			class='btn'
+			ng-class="{'btn': !isActive, 'btn btn-success': isActive}">In Progress</button>
 
 <!-- All sports button -->
 
 <button 	ng-click="sportClick(button)"
-			class='btn btn-primary'
+			class='btn'
 			ng-class="{'btn-success' : isSelected(button)}">All</button>
 
 <!-- ng-repeat to grab all of the sport buttons -->
@@ -23,7 +23,7 @@
 		ng-repeat="button in buttons">
 <button ng-class="{'btn-success' : isSelected(button)}" 
 		ng-click="sportClick(button)" 
-		class="btn btn-primary"> {{ button.sport }} </button>
+		class="btn"> {{ button.sport }} </button>
 </span>
 <hr>
 <h3>{{ scoresFilter.length }} Games</h3>
@@ -33,7 +33,7 @@
 <div 	enter="alert-hover" leave="alert-hover"
 		id="tiles"
 		ng-repeat="score in scoresFilter = (scores | filter: searchGames | filter:{sport:selected.sport})"
-		class="tiles col-md-3 alert"
+		class="tiles col-md-3 alert alert-in-progress"
 		ng-class="{true: 'alert-upcoming', false: 'alert-in-progress'}[score.timeRem.substr(0,5) == 'Final' || score.timeRem.substr(4,2) == 'PM' || score.timeRem.substr(5,2) == 'PM']">
 	<gamescore ng-click="toggleModal(score)"></gamescore>
 </div>
